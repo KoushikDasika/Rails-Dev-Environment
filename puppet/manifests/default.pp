@@ -60,6 +60,8 @@ class install_postgres {
 }
 class { 'install_postgres': }
 
+
+
 class install-rvm {
   include rvm
   rvm::system_user { vagrant: ; }
