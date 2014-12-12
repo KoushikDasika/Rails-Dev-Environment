@@ -30,19 +30,6 @@ package { ['libmagickwand4', 'libmagickwand-dev']:
 ensure => installed,
 }
 
-class install_mysql {
-  class { 'mysql': }
-
-  class { 'mysql::server':
-    config_hash => { 'root_password' => '' }
-  }
-
-  package { 'libmysqlclient15-dev':
-    ensure => installed
-  }
-}
-class { 'install_mysql': }
-
 class install_postgres {
   class { 'postgresql': }
 
