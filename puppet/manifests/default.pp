@@ -13,64 +13,41 @@ class { 'apt_get_update':
 }
 
 package { [ 'build-essential', 
-'zlib1g-dev', 
-'libssl-dev', 
-'libreadline-dev', 
-'git-core', 
-'libxml2', 
-'libxml2-dev', 
-'libxslt1-dev',
-'sqlite3',
-'libsqlite3-dev']:
-ensure => installed,
+  'zlib1g-dev', 
+  'libssl-dev', 
+  'libreadline-dev', 
+  'git-core', 
+  'libxml2', 
+  'libxml2-dev', 
+  'libxslt1-dev',
+  'libpq-dev',
+  'sqlite3',
+  'curl',
+  'libsqlite3-dev']:
+  ensure => installed,
 }
 
 # RMagick system dependencies
 package { ['libmagickwand4', 'libmagickwand-dev']:
-ensure => installed,
+  ensure => installed,
 }
-
-class install_postgres {
-  class { 'postgresql': }
-
-  class { 'postgresql::server': }
-
-  pg_user { 'vagrant':
-    ensure    => present,
-    superuser => true,
-    require   => Class['postgresql::server']
-  }
-
-  package { 'libpq-dev':
-    ensure => installed
-  }
-}
-class { 'install_postgres': }
-
-
 
 class install-rvm {
   include rvm
+
   rvm::system_user { vagrant: ; }
 
   rvm_system_ruby {
-    'ruby-1.9.3-p194':
+    'ruby-2.1.0':
       ensure => 'present',
-      default_use => false;
-    'ruby-1.8.7-p370':
-      ensure => 'present',
-      default_use => false;
+      default_use => true;
   }
 
   rvm_gem {
-    'ruby-1.9.3-p194/bundler': ensure => latest;
-    'ruby-1.9.3-p194/rails': ensure => latest;
-    'ruby-1.9.3-p194/rake': ensure => latest;
-    'ruby-1.8.7-p370/bundler': ensure => latest;
-    'ruby-1.8.7-p370/rails': ensure => latest;
-    'ruby-1.8.7-p370/rake': ensure => latest;
+    'ruby-2.1.0/bundler': ensure => latest;
+    'ruby-2.1.0/rails': ensure => latest;
+    'ruby-2.1.0/rake': ensure => latest;
   }
-
 }
 
 class { 'install-rvm': }
