@@ -12,13 +12,13 @@ class { 'apt_get_update':
   stage => preinstall
 }
 
-package { [ 'build-essential', 
-  'zlib1g-dev', 
-  'libssl-dev', 
-  'libreadline-dev', 
-  'git-core', 
-  'libxml2', 
-  'libxml2-dev', 
+package { [ 'build-essential',
+  'zlib1g-dev',
+  'libssl-dev',
+  'libreadline-dev',
+  'git-core',
+  'libxml2',
+  'libxml2-dev',
   'libxslt1-dev',
   'libpq-dev',
   'sqlite3',
